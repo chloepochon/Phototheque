@@ -1,0 +1,33 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+
+<h1>Recherche par mots-clés</h1>
+        <form class="form-inline" action="{{url_for('recherche_tags')}}" method="GET">
+        <select name="tags">
+                <option value="Shoah">Shoah</option>
+                <option value="Résistance">Résistance</option>
+                <option value="Seconde guerre mondiale">Seconde guerre mondiale</option>
+                <option value="Spoliation">Spoliation</option>
+            </select>
+            <button type="submit">Rechercher par mots-clés</button>
+        </form>
+
+{% if resultats %}
+<div>
+    <p>Résultats de recherche</p>
+    <ul>
+        {% for photo in resultats %}
+        <li>
+            <a href="{{url_for('photo', photo_id=photo.photo_id)}}">{{photo.photo_titre}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<p><a href="{{url_for('accueil')}}">Retour à la page d'accueil</a> </p>
+<p><a href="{{url_for('presentation')}}">Présentation du projet</a> </p>
+<p><a href="{{url_for('galerie')}}">Accéder à la galerie</a> </p>
+<p><a href="{{url_for('index')}}"><i>Index</i></a> </p>
+{% endblock %}

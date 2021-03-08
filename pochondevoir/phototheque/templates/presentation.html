@@ -1,0 +1,27 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+
+<h1>Le projet</h1><br/>
+
+<div style="width: 30%; margin-left: 5%" align="left">
+    <p>Cette application a été développée par Chloé Pochon à l'occasion d'un devoir réalisé
+        dans le cadre de la deuxième année de master "Technologies numériques appliquées à l'histoire"
+        à l'Ecole nationale des chartes.</p><br/>
+    <p>A la fois photothèque et application de téléchargement de photographies, il s'appuie
+        sur son projet photographique réalisé en 2016 et intitulé
+        "Objet de l'Hsitoire, histoire de l'objet".</p>
+</div>
+
+<div>
+    <img src="static/img/cahieranouet.jpg" style="width:  25%; margin-top: -20%; margin-right : 20%" align="right"/>
+</div>
+
+<div style="margin-top: 20%">
+<p><a href="{{url_for('accueil')}}"><i>Retour à la page d'accueil</i></a></p>
+<p><a href="{{url_for('presentation')}}"><i>Présentation du projet</i></a></p>
+<p><a href="{{url_for('galerie')}}"><i>Accéder à la galerie</i></a></p>
+<p><a href="{{url_for('index')}}"><i>Index</i></a></p>
+</div>
+
+{% endblock %}
