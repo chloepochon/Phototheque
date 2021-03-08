@@ -1,4 +1,4 @@
-# Phototheque
+# Phototheque "Objet de l'Histoire, histoire de l'Objet."
 
 :camera_flash: **Présentation du projet**
 
