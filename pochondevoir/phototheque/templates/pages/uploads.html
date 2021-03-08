@@ -1,0 +1,99 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}| Télécharger une nouvelle image {%endblock%}
+
+{% block corps %}
+
+{% if current_user.is_authenticated %}
+<div>
+    <i>Téléchargez une nouvelle image grâce à ce formulaire</i><br/>
+
+  {% if errors %}
+  <ul>
+    {% for error in errors %}
+      <li>{{error}}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+<form method=POST enctype=multipart/form-data action="{{ url_for('upload')}}">
+    <input type=file name=photo>
+  <br/>
+  <div> <i>Après le téléchargement, veuillez compléter les champs ci-dessous :</i></div>
+  <br/>
+  <div class="form-group row">
+    <label for="titre" class="col-sm-2 col-form-label">Titre de la photographie :</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre de la photographie"/>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="description" class="col-sm-2 col-form-label">Description de la photographie : </label>
+    <div class="col-sm-10">
+      <textarea type="text" class="form-control" id="description" placeholder="Description de la photographie" name="description" style="width : 100%;"></textarea>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label for="auteur" class="col-sm-2 col-form-label">Auteur : </label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="auteur" name="auteur" placeholder="Nom du photographe"/>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label for="date" class="col-sm-2 col-form-label">Date : </label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="date" name="date" placeholder="Année de la prise de vue (YYYY)"/>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label for="tag" class="col-sm-2 col-form-label">Tag : </label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="tag" name="tag" placeholder="Inserez un mot-clé unique"/>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label for="orientation" class="col-sm-2 col-form-label">Orientation <i>(portrait/paysage)</i> : </label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="orientation" name="orientation" placeholder="Indiquez l'orientation"/>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="chemin" class="col-sm-2 col-form-label">Chemin du fichier <i>(mention entre crochets à remplacer par le nom du fichier)</i>: </label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="chemin" name="chemin" value='<img src="/static/img/[exemple.jpg]"/>' placeholder='<img src="/static/img/[exemple.jpg]"/>'/>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="fichier" class="col-sm-2 col-form-label">Nom du fichier : </label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="fichier" name="fichier" placeholder="exemple.jpg" />
+    </div>
+  </div>
+    <br/>
+    <div>
+    <button type="submit" class="btn btn-primary">Télécharger</button>
+  </div>
+</form>
+<br/>
+
+
+<p><a href="{{url_for('accueil')}}"><i>Retour à la page d'accueil</i></a></p>
+<p><a href="{{url_for('presentation')}}"><i>Présentation du projet</i></a></p>
+<p><a href="{{url_for('galerie')}}"><i>Accéder à la galerie</i></a></p>
+<p><a href="{{url_for('index')}}"><i>Index</i></a></p>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

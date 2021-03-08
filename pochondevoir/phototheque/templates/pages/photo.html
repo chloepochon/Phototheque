@@ -1,0 +1,40 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}
+    {%if photo %}| Photo : {{photo.photo_titre}} {% endif %}
+{% endblock %}
+
+{% block corps %}
+{% if photo %}
+        <h1 style="font-size: 30px;">{{photo.photo_titre}}</h1>
+        <dl class="description_img">
+            <dt>Description : </dt><dd>{{photo.photo_description}}</dd>
+            <dt>Auteur : </dt><dd>{{photo.photo_auteur}}</dd>
+            <dt>Date : </dt><dd>{{photo.photo_date}}</dd>
+            <dt>Tag : </dt><dd>{{photo.photo_tag}}</dd>
+            <dt>Orientation : </dt><dd>{{photo.photo_orientation}}</dd>
+
+            <dt>Image : </dt> <br/>
+                <dd class="img_resultat" style="width : 80%">
+                    {% if photo.photo_fichier %}
+                        <img src="/static/img/{{photo.photo_fichier}}" style="width: 100%"/>
+                    {% endif %}
+                </dd>
+        </dl>
+
+               {%  if current_user.is_authenticated %}
+        <div>
+            <p><a href="{{url_for('edit_notice', photo_id = photo.photo_id)}}">Modifier</a></p>
+        </div>
+                {% endif %}
+
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+
+<p><a href="{{url_for('accueil')}}">Retour à la page d'accueil</a></p>
+<p><a href="{{url_for('presentation')}}">Présentation du projet</a></p>
+<p><a href="{{url_for('galerie')}}">Accéder à la galerie</a></p>
+<p><a href="{{url_for('index')}}"><i>Index</i></a></p>
+
+{% endblock %}
