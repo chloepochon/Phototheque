@@ -23,27 +23,30 @@ Cette application a été développée par Chloé Pochon à l'occasion d'un devo
   
 :desktop_computer: **Installation**
  
- * Via son terminal, l'utilisateur-ice doit créer un environement virtuel dans un dossier de son choix : virtualenv env -p python3
+ * Via son terminal, l'utilisateur-ice doit créer un environement virtuel dans un dossier de son choix : `virtualenv env -p python3`
  * L'utilisateur-ice devra installer des packages et libraries : 
   1. Pour cela il doit sourcer son environnement virtuel 
-    -> dans le dossier choisi faire la commande source env/bin/activate 
+    -> dans le dossier choisi faire la commande `source env/bin/activate` 
   2.  Puis : 
-       - Flask : pip install flask
-       - Flask-SQLAlchemy : pip install flask_sqlalchemy
-       - Flask-Login : pip install flask-login
-       - Flask-Uploads : pip install Flask-Uploads
-       - Flask-Reuploaded : pip install Flask-Reuploaded
-  3. Vérifier que tout est bien installé : pip freeze
-  4. Désactiver l'environnement : deactivate
+       - Flask : `pip install flask`
+       - Flask-SQLAlchemy : `pip install flask_sqlalchemy`
+       - Flask-Login : `pip install flask-login`
+       - Flask-Uploads : `pip install Flask-Uploads`
+       - Flask-Reuploaded : `pip install Flask-Reuploaded`
+       
+  OU installer les packages nécessaires directement avec la commande `pip install -r requirements.txt`
   
- * Il devra aussi installer SQLite : sudo apt-get install sqlite3
+  3. Vérifier que tout est bien installé : `pip freeze`
+  4. Désactiver l'environnement : `deactivate`
+  
+ * Il devra aussi installer SQLite : `sudo apt-get install sqlite3`
  
- * Enfin l'utilisateur-ice devra cloner le dossier : git clone https://github.com/chloepochon/Phototheque
+ * Enfin l'utilisateur-ice devra cloner le dossier : `git clone https://github.com/chloepochon/Phototheque`
  
  * Il pourra alors lancer l'application : 
-    - Activer l'environnement virtuel : source env/bin/activate
-    - Lancer l'application : python run.py
+    - Activer l'environnement virtuel : `source env/bin/activate`
+    - Lancer l'application : `python run.py`
     - Aller sur http://127.0.0.1:5000/ 
-    - Pour désactiver : ctrl + c
+    - Pour désactiver : `ctrl + c`
   
   
