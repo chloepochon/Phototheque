@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Objet de l'Histoire, histoire de l'objet. {%block titre %}{%endblock%}</title>
+        {% include "partials/css.html" %}
+        {% include "partials/metadata.html" %}
+        <style type="text/css">
+            .hero  {
+                background-position: center center;
+                padding:10vh;
+                background-image: url({{url_for('static', filename='images/tableau_communion.jpg')}});
+            }
+            .container .hero {
+                background-image: none;
+            }
+
+            .bandeau {
+            color : #073356;
+            font-weight : bold;
+            background-color : white;
+            border-radius: 10px;
+            padding : 5px;
+            display: inline-block;
+            text-align : center;
+            }
+
+            .centre {
+            margin: 0 auto;
+            width: 100px;
+  }
+
+        </style>
+    </head>
+
+
+    <body>
+
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
+          <a class="navbar-brand" href="{{ url_for('accueil') }}"><i>Objet de l'Histoire, histoire de l'objet.</i></a>
+
+        <ul class="navbar-nav mr-auto">
+
+            {% if not current_user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('inscription')}}">Inscription</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('connexion')}}">Connexion</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('deconnexion')}}">Déconnexion ({{current_user.user_nom}})</a>
+              </li>
+            {% endif %}
+        </ul>
+        <form class="form-inline" action="{{url_for('recherche')}}" method="GET">
+          <input class="form-control" name="keyword" type="search" placeholder="Recherche rapide" aria-label="Recherche">
+          <button class="btn btn-info" type="submit">Rechercher</button>
+        </form>
+      </nav>
+      {% block afternav %}{%endblock%}
+      <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          <div class="row">
+              <div class="col">
+                {% for category, message in messages %}
+                  <div class="alert alert-{{category}}" role="alert">{{ message }}</div>
+                {% endfor %}
+              </div>
+          </div>
+          {% endif %}
+        {% endwith %}
+        <br/>
+        <div class="row">
+            <div class="col">
+            {% block corps %}{% endblock %}
+            </div>
+        </div>
+
+          <br/>
+          <p>&copy; Chloé Pochon</p> 
+          <img src="{{url_for('static', filename='images/enc.png')}}" style="float: right;margin: 1%;  margin-top: -15%; "/>
+          <img src="{{url_for('static', filename='images/cercil.jpg')}}" style="width: 10%; float: right; margin: 1%; margin-top: -5%;"/>
+          <img src="{{url_for('static', filename='images/fondation.png')}}" style="width: 5%; float: right;  margin: 1%; margin-top: -5%;"/>
+          <img src="{{url_for('static', filename='images/memorial.png')}}" style="width: 5%; float: right;  margin: 1%; margin-top: -5%;"/>
+          <img src="{{url_for('static', filename='images/uda.jpg')}}" style="width: 5%; float: right;  margin: 1%; margin-top: -5%;"/>
+      </div>
+    </body>
