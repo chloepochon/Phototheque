@@ -1,0 +1,20 @@
+{% extends "conteneur.html" %}
+{% block afternav %}
+    {% include "partials/recherche.html" %}
+{%endblock%}
+{% block corps %}
+
+ {% if photos %}
+    <p>Voici {{photos|length}} des {{photos_affichees|length}} photographies enregistrées :</p>
+        <ul>
+            {% for photo in photos %}
+                <li><a href="{{url_for('photo', photo_id=photo.photo_id)}}">{{photo.photo_titre}}</a></li>
+            {% endfor %}
+        </ul>
+ {% else %}
+        <p>La base de données est en cours de constitution</p>
+ {% endif %}
+
+<p><a href="{{url_for('index')}}"><i>Index</i></a> </p>
+
+{% endblock %}

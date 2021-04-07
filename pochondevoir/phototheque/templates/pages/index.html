@@ -1,0 +1,24 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+<h1>Index</h1>
+
+<p>Il y a {{liste_photos|length}} photographies enregistrées dans la base.</p>
+
+
+{% for photo in liste_photos %}
+    <div>
+        <ul>
+     <li>
+         <a href="{{url_for('photo', photo_id = photo.photo_id)}}">{{photo.photo_titre}}</a>
+     </li>
+        </ul>
+    </div>
+
+{% endfor %}
+
+<p><a href="{{url_for('accueil')}}"><i>Retour à la page d'accueil</i></a></p>
+<p><a href="{{url_for('presentation')}}"><i>Présentation du projet</i></a></p>
+<p><a href="{{url_for('galerie')}}"><i>Accéder à la galerie</i></a></p>
+
+{% endblock %}

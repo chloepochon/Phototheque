@@ -1,0 +1,50 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}| Télécharger une nouvelle image {%endblock%}
+
+{% block corps %}
+
+{% if current_user.is_authenticated %}
+<div>
+    <h2><i>Remplacer l'image actuelle</i></h2>
+
+    {% if errors %}
+  <ul>
+    {% for error in errors %}
+    <li>{{error}}</li>
+    {% endfor %}
+  </ul>
+    {% endif %}
+
+<form method=POST enctype=multipart/form-data action="{{ url_for('replace', photo_id=photo.photo_id)}}">
+    <div class="img_resultat" style="width : 80%">
+            <img src="/static/img/{{photo.photo_fichier}}" style="width: 50%"/>
+    </div>
+    <br/>
+  <div class="form-group row">
+  <label for="fichier" class="col-sm-2 col-form-label">Fichier : </label>
+  <input type=file name=photo onchange="processSelectedFiles(this)">
+    <div>
+      <input type="text" id="fichier" name="fichier"  placeholder="{{photo.photo_fichier}}" readonly/>
+      <!-- Le nom du fichier est récupéré automatiquement -->
+      <!-- Documentation : https://openclassrooms.com/forum/sujet/formulaire-recuperer-nom-de-fichier -->
+        <script type="text/javascript">
+        var chemin = document.getElementById('fichier').value
+        function processSelectedFiles(fileInput) {
+        var files = fileInput.files;
+        var nomfichier = files[0].name
+        document.getElementById('fichier').value = chemin + nomfichier;
+          }
+        </script>
+</div>
+   <br/>
+    <div>
+    <button type="submit" class="btn btn-primary">Remplacer</button>
+    </div>
+  </div>
+</form>
+</div>
+
+    {% endif %}
+
+    {% endblock %}

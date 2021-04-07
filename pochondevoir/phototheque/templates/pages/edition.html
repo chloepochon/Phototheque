@@ -1,0 +1,133 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}| Modifier une image {%endblock%}
+
+{% block corps %}
+
+{% if current_user.is_authenticated %}
+<div>
+    <h2><i>Remplacez une image ou modifiez seulement sa notice grâce à ce formulaire</i></h2>
+
+  {% if errors %}
+  <ul>
+{% for error in errors %}
+  <li>{{error}}</li>
+{% endfor %}
+  </ul>
+{% endif %}
+
+
+<form method=POST enctype=multipart/form-data action="{{ url_for('edit_notice', photo_id=photo.photo_id)}}" name="form">
+    <p><a href="{{url_for('replace', photo_id = photo.photo_id)}}">Remplacer la photographie</a></p>
+    <p><a href="{{url_for('delete', photo_id = photo.photo_id)}}">Supprimer la photographie</a></p>
+    <div class="img_resultat" style="width : 80%">
+            <img src="/static/img/{{photo.photo_fichier}}" style="width: 50%"/>
+    </div>
+
+  <br/>
+  <p><i>Pour modifier la notice veuillez remplir les champs ci-dessous :</i></p>
+  <div class="form-group row">
+    <label for="titre" class="col-sm-2 col-form-label">Titre de la photographie :</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre de la photographie" value="{{photo.photo_titre}}"/>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="description" class="col-sm-2 col-form-label">Description de la photographie : </label>
+    <div class="col-sm-10">
+      <textarea type="text" class="form-control" id="description" placeholder="Description de la photographie" name="description" style="width : 100%;">{{photo.photo_description}}</textarea>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label for="auteur" class="col-sm-2 col-form-label">Auteur-ice : </label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="auteur" name="auteur" placeholder="Nom du photographe" value="{{photo.photo_auteur}}"/>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label for="date" class="col-sm-2 col-form-label">Date : </label>
+    <div class="col-sm-10">
+      <input type="date" id="date" name="date" min="1830-01-01" max="2021-12-31" value="{{photo.photo_date}}"/>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Tag : </label>
+      <div class="col-sm-10" >
+        <!-- Documentation : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Input/radio -->
+        {% if photo.photo_tag == "Seconde guerre mondiale" %}
+      <input type="radio" id="sgm" name="tag" value="Seconde guerre mondiale" checked="checked">
+      <label for="sgm">Seconde guerre mondiale</label>
+      <input type="radio" id="shoah" name="tag" value="Shoah">
+      <label for="shoah">Shoah</label>
+        <input type="radio" id="resistance" name="tag" value="Résistance">
+      <label for="resistance">Résistance</label>
+        <input type="radio" id="spoliation" name="tag" value="Spoliation">
+      <label for="spoliation">Spoliation</label>
+        {% endif %}
+        {% if photo.photo_tag == "Shoah" %}
+      <input type="radio" id="sgm2" name="tag" value="Seconde guerre mondiale">
+      <label for="sgm">Seconde Guerre Mondiale</label>
+      <input type="radio" id="shoah2" name="tag" value="Shoah" checked="checked">
+      <label for="shoah">Shoah</label>
+        <input type="radio" id="resistance2" name="tag" value="Résistance">
+      <label for="resistance">Résistance</label>
+        <input type="radio" id="spoliation2" name="tag" value="Spoliation">
+      <label for="spoliation">Spoliation</label>
+        {% endif %}
+        {% if photo.photo_tag == "Résistance" %}
+      <input type="radio" id="sgm3" name="tag" value="Seconde guerre mondiale">
+      <label for="sgm">Seconde Guerre Mondiale</label>
+      <input type="radio" id="shoah3" name="tag" value="Shoah" checked="checked">
+      <label for="shoah">Shoah</label>
+        <input type="radio" id="resistance3" name="tag" value="Résistance" checked="checked">
+      <label for="resistance">Résistance</label>
+        <input type="radio" id="spoliation3" name="tag" value="Spoliation">
+      <label for="spoliation">Spoliation</label>
+        {% endif %}
+        {% if photo.photo_tag == "Spoliation" %}
+      <input type="radio" id="sgm4" name="tag" value="Seconde guerre mondiale">
+      <label for="sgm">Seconde Guerre Mondiale</label>
+      <input type="radio" id="shoah4" name="tag" value="Shoah" checked="checked">
+      <label for="shoah">Shoah</label>
+        <input type="radio" id="resistance4" name="tag" value="Résistance">
+      <label for="resistance">Résistance</label>
+        <input type="radio" id="spoliation4" name="tag" value="Spoliation" checked="checked">
+      <label for="spoliation">Spoliation</label>
+        {% endif %}
+    </div>
+  </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Orientation : </label>
+      <div class="col-sm-10" id="set" >
+        {% if photo.photo_orientation == "paysage" %}
+      <input type="radio" id="paysage" name="orientation" value="paysage" checked="checked">
+      <label for="paysage">Paysage</label>
+        <input type="radio" id="portrait2" name="orientation" value="portrait">
+      <label for="portrait2">Portrait</label>
+        {% endif %}
+        {% if photo.photo_orientation == "portrait" %}
+        <input type="radio" id="paysage2" name="orientation" value="paysage">
+      <label for="paysage2">Paysage</label>
+      <input type="radio" id="portrait" name="orientation" value="portrait" checked="checked">
+      <label for="portrait">Portrait</label>
+        {% endif %}
+    </div>
+  </div>
+
+    <div>
+    <button type="submit" class="btn btn-primary">Sauvegarder</button>
+  </div>
+</form>
+
+
+<br/>
+<p><a href="{{url_for('accueil')}}"><i>Retour à la page d'accueil</i></a></p>
+<p><a href="{{url_for('presentation')}}"><i>Présentation du projet</i></a></p>
+<p><a href="{{url_for('galerie')}}"><i>Accéder à la galerie</i></a> </p>
+<p><a href="{{url_for('index')}}"><i>Index</i></a> </p>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+<h1>Galerie</h1>
+
+{% if resultats %}
+
+<p>Il y a {{photos_affichees|length}} photographies présentes dans la galerie.</p>
+<p><i>(Cliquez sur l'image pour accéder directement à sa notice.)</i></p>
+
+<div>
+{% for photo in resultats.items %}
+<div>
+    <ul>
+        <li>
+            <h3>{{photo.photo_titre}}</h3></li><br/>
+    <div>
+        <a href="{{url_for('photo', photo_id = photo.photo_id)}}">
+            <img src="static/img/{{photo.photo_fichier}}" style="width : 50%"/>
+        </a>
+    </div>
+        </li>
+    </ul>
+</div>
+
+{% endfor %}
+    <nav aria-label="research-pagination">
+      <ul class="pagination">
+        {% for page in resultats.iter_pages() %}
+            {% if page %}
+
+              {% if page != resultats.page %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('galerie', page=page) }}">{{page}}</a>
+                </li>
+              {% else %}
+                <li class="page-item active disabled">
+                  <a class="page-link">{{page}} <span class="sr-only">(actuelle)</span></a>
+                </li>
+              {% endif %}
+
+            {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link">...</a>
+                </li>
+            {% endif %}
+
+        {%- endfor %}
+      </ul>
+    </nav>
+    </div>
+
+{% endif %}
+
+<p><a href="{{url_for('accueil')}}"><i>Retour à la page d'accueil</i></a> </p>
+<p><a href="{{url_for('presentation')}}"><i>Présentation du projet</i></a> </p>
+<p><a href="{{url_for('index')}}"><i>Index</i></a></p>
+
+{% endblock %}

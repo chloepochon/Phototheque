@@ -1,0 +1,115 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}| Télécharger une nouvelle image {%endblock%}
+
+{% block corps %}
+
+{% if current_user.is_authenticated %}
+<div>
+    <h1>Téléchargez une nouvelle image grâce à ce formulaire</h1><br/>
+
+  {% if errors %}
+  <ul>
+    {% for error in errors %}
+      <li>{{error}}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+<form method=POST enctype=multipart/form-data action="{{ url_for('upload')}}" >
+<label for="fichier" class="col-sm-2 col-form-label">Fichier : </label>
+  <input type=file name=photo onchange="processSelectedFiles(this)" >
+    <div class="col-sm-10">
+      <input type="text" class="col-sm-2 col-form-label" id="fichier" name="fichier" readonly/>
+      <!-- Documentation : https://openclassrooms.com/forum/sujet/formulaire-recuperer-nom-de-fichier -->
+        <script type="text/javascript">
+        var chemin = document.getElementById('fichier').value
+        function processSelectedFiles(fileInput) {
+        var files = fileInput.files;
+        var nomfichier = files[0].name
+        document.getElementById('fichier').value = chemin + nomfichier;
+          }
+        </script>
+</div>
+
+  <br/>
+  <div><i>Après avoir sélectionné votre fichier, veuillez compléter les champs ci-dessous :</i></div>
+  <br/>
+  <div class="form-group row">
+    <label for="titre" class="col-sm-2 col-form-label">Titre de la photographie :</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre de la photographie"/>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="description" class="col-sm-2 col-form-label">Description de la photographie : </label>
+    <div class="col-sm-10">
+      <textarea type="text" class="form-control" id="description" placeholder="Description de la photographie" name="description" style="width : 100%;"></textarea>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label for="auteur" class="col-sm-2 col-form-label">Auteur-ice : </label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="auteur" name="auteur" placeholder="Nom du photographe"/>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label for="date" class="col-sm-2 col-form-label">Date : </label>
+    <div class="col-sm-10">
+      <input type="date" id="date" name="date" min="1830-01-01" max="2021-12-31"/>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Tag : </label>
+      <div class="col-sm-10" >
+        <!-- Documentation : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Input/radio -->
+      <input type="radio" id="sgm" name="tag" value="Seconde guerre mondiale">
+      <label for="sgm">Seconde Guerre Mondiale</label>
+      <input type="radio" id="shoah" name="tag" value="Shoah">
+      <label for="shoah">Shoah</label>
+        <input type="radio" id="resistance" name="tag" value="Résistance">
+      <label for="resistance">Résistance</label>
+        <input type="radio" id="spoliation" name="tag" value="Spoliation">
+      <label for="spoliation">Spoliation</label>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Orientation : </label>
+      <div class="col-sm-10" >
+        <!-- Documentation : https://developer.mozilla.org/fr/docs/Web/HTML/Element/Input/radio -->
+      <input type="radio" id="paysage" name="orientation" value="paysage">
+      <label for="paysage">Paysage</label>
+      <input type="radio" id="portrait" name="orientation" value="portrait">
+      <label for="portrait">Portrait</label>
+    </div>
+  </div>
+
+
+    <br/>
+    <div>
+    <button type="submit" class="btn btn-primary">Télécharger</button>
+  </div>
+</form>
+<br/>
+
+
+<p><a href="{{url_for('accueil')}}"><i>Retour à la page d'accueil</i></a></p>
+<p><a href="{{url_for('presentation')}}"><i>Présentation du projet</i></a></p>
+<p><a href="{{url_for('galerie')}}"><i>Accéder à la galerie</i></a></p>
+<p><a href="{{url_for('index')}}"><i>Index</i></a></p>
+
+{% endif %}
+
+</div>
+
+{% endblock %}
