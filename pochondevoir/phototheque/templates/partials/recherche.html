@@ -1,0 +1,23 @@
+<div class="hero jumbotron">
+  <div class="container">
+    <form class="form" action="{{url_for("recherche")}}" method="GET">
+
+    <div class="input-group">
+      <input type="search" name="keyword" class="form-control form-control-lg" type="text" placeholder="Faire une recherche">
+      <span class="input-group-btn">
+        <button class="btn btn-primary btn-lg" href="#" role="button">Rechercher</button>
+      </span>
+    </div>
+    </form>
+  </div>
+  <br/>
+  <div>
+    <a href="{{url_for('recherche_tags')}}" class="bandeau">Recherche par mots-clés</a>
+    <a href="{{url_for('presentation')}}" class="bandeau"><i>Le projet</i></a>
+    <a href="{{url_for('galerie')}}" class="bandeau"><i>Galerie</i></a>
+    {% if current_user.is_authenticated %}
+<a href="{{url_for('upload')}}" class="bandeau">Importer une image</a>
+<a href="{{url_for('update_accueil')}}" class="bandeau">Modifier une image</a>
+{% endif%}
+  </div>
+</div>
